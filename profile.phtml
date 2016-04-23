@@ -13,6 +13,7 @@ if ($result->num_rows > 0) {
         $level = $row["Level"];
         $image = $row["Picture_link"];
         $level_description = $row["description"];
+        $level_class = $row["css_class"];
     }
 }
 
@@ -56,16 +57,16 @@ if ($result->num_rows > 0) {
             <div class="user">
                 <header class="user__header">
                     <div class="user__exp">
-                        <span class="value">0.0</span>
+                        <span class="value"><?php echo ($experience) ?></span>
                         <span class="param">опыт</span>
                     </div>
 
                     <div class="user__photo">
-                        <img class="photo" src="">
+                        <img class="photo" src="<?php echo ($image)?>">
                     </div>
 
                     <div class="user__level">
-                        <span class="value">1</span>
+                        <span class="value"><?php echo ($level) ?></span>
                         <span class="param">уровень</span>
                     </div>
 
@@ -74,8 +75,8 @@ if ($result->num_rows > 0) {
 
                 <footer class="user__footer">
                     <div class="user__progress">
-                        <p class="user__role"><?php echo($level_description) ?></p>
-                        <p class="user__info"><?php echo(100 - $experience) ?> до следующего уровня</p>
+                        <p class="user__role <?php echo ($level_class) ?>"><?php echo($level_description) ?></p>
+                        <p class="user__info"><span class="value"> <?php echo(100 - $experience) ?></span> до следующего уровня</p>
                     </div>
 
                     <ul class="user-menu">
@@ -96,25 +97,7 @@ if ($result->num_rows > 0) {
             </div>
 
             <div class="frame-widget news-feed">
-                <?php
-                $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . id . " and events.finished = false";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
 
-                        echo ("<article class=\"news-article\">");
-                        echo ("<h3 class=\"news-article__title\">".$row["Title"]."</h3>");
-                        echo  ("<div class=\"news-article__description\">". $row["ShortDescription"] ."</div>");
-                        $date = $row["Date_start"];
-                        $date = strtotime($date);
-                        $day = date("d", $date);
-                        $mon = date("M", $date);
-                        $year = date("Y", $date);
-                        echo ("<div class=\"news-article__date\">".$day. " " . $mon . " " . $year . "</div>");
-
-                    }
-                }
-                ?>
                 <article class="news-article">
                     <h3 class="news-article__title">Заголовок 1</h3>
                     <div class="news-article__description">Краткое описание</div>
@@ -140,36 +123,51 @@ if ($result->num_rows > 0) {
                 <div class="widget-area__col widget-area__col_position_left">
                     <h4 class="widget-area__subtitle widget-area__subtitle_type_term">Активные</h4>
 
-                    <div class="widget">
-                        <div class="widget__body">
-                            <div class="goal">
-                                <p class="goal__subtitle">категория</p>
-                                <h2 class="goal__title">заголовок</h2>
 
-                                <ul class="metrics">
-                                    <li class="metrics__item"><i class="fa fa-users"></i>370</li>
-                                    <li class="metrics__item"><i class="fa fa-clock-o"></i>23 января 2012</li>
-                                    <li class="metrics__item"><i class="fa fa-star"></i>3</li>
-                                </ul>
+                    <?php
+                    $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . $uid . " and events.finished = false";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $sql = "SELECT COUNT(*) as total FROM event_participants WHERE Event_id = " .$row["Id"];
+                            $cnt_res = $conn->query($sql);
+                            $data = $cnt_res->fetch_assoc();
+                            $cnt = $data["total"];
+                            $date = $row["Date_start"];
+                            $date = strtotime($date);
+                            $day = date("d", $date);
+                            $mon = date("M", $date);
+                            $year = date("Y", $date);
+                            echo ("<div class=\"widget\">");
+                                echo ("<div class=\"widget__body\">");
+                                    echo ("<div class=\"goal\">");
+                                        echo ("<p class=\"goal__subtitle\">".$row["Type"]."</p>");
+                                        echo ("<h2 class=\"goal__title\">".$row["Title"]."</h2>");
+                                        echo ("<ul class=\"metrics\">");
+                                            echo ("<li class=\"metrics__item\"><i class=\"fa fa-users\"></i>".$cnt."</li>");
+                                            echo ("<li class=\"metrics__item\"><i class=\"fa fa-clock-o\"></i>".$day. " " . $mon . " " . $year . "</li>");
+                                        echo ("</ul>");
+                                        echo ("<div class=\"counter counter_state_normal\">");
+                                            echo ("<span class=\"counter__wrap\">");
+                                            echo ("<span class=\"counter__result\">".$row["progress"]."</span>");
+                                            echo ("</span>");
+                                        echo ("</div>");
+                                    echo ("<div class=\"clear\"></div>");
+                                    echo ("</div>");
+                                echo ("</div>");
+                            echo ("<div class=\"widget__foot\">");
+                                echo ("<div class=\"progressbar\">");
+                                    echo ("<div class=\"progressbar__wrap\">");
+                                        echo ("<div class=\"progressbar__end\" style=\"width: ".$row["progress"]."%;\"></div>");
+                                    echo ("</div>");
+                                echo ("</div>");
+                            echo ("<p class=\"goal-date\">".$day. " " . $mon . " " . $year . "</p>");
+                                echo ("</div>");
+                            echo ("</div>");
+                        }
+                    }
+                    ?>
 
-                                <div class="counter counter_state_normal">
-                                            <span class="counter__wrap">
-                                                <span class="counter__result">45</span>
-                                            </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="widget__foot">
-                            <div class="progressbar">
-                                <div class="progressbar__wrap">
-                                    <div class="progressbar__end" style="width: 45%;"></div>
-                                </div>
-                            </div>
-                            <p class="goal-date">20 января 2010</p>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="widget-area__col widget-area__col_position_right">
