@@ -235,6 +235,7 @@ h1, h2, h3, h4
     text-transform: uppercase;
     display: inline-block;
     margin: 5px 0 0;
+    color: #8bc34a;
 }
 
 .header
@@ -244,7 +245,7 @@ h1, h2, h3, h4
     margin: 0 0 5px;
     width: 100%;
 
-    box-shadow: 0 2px 2px #a2a5ab;
+    box-shadow: 0 2px 2px #8bc34a;
 }
 
 .header .container
@@ -555,7 +556,8 @@ h1, h2, h3, h4
 {
     margin: 0 0 40px;
 
-    box-shadow: 0 2px 2px #a2a5ab;
+    border: 4px solid #8bc34a;
+    border-top: 0;
 }
 
 .user__header
@@ -693,41 +695,74 @@ h1, h2, h3, h4
 .frame-widget
 {
     padding: 10px;
-    border: 4px solid #fff
+    border: 4px solid #8bc34a;
 }
 
-.frame-widget .news-article
+.achievement
 {
     padding: 8px 0;
-    border-bottom: 1px solid #fff;
+    overflow: hidden;
+    border-bottom: 1px solid #8bc34a;
 }
 
-.frame-widget .news-article:last-child
+.achievement:last-child
 {
     border: 0;
 }
 
-.frame-widget .news-article__title
+.achievement__title
 {
-    padding: 0 0 5px;
+    padding: 20px 0 10px;
 }
 
-.frame-widget .news-article__description
+.achievement__icon
 {
-    padding: 0 0 5px;
+    display: block;
+    float: left;
+    width: 64px;
+    height: 64px;
+    margin: 5px 10px 5px 0;
+
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
 }
 
-.frame-widget .news-article__date
+.achievement__icon_type_top-rated
 {
-    font-style: italic;
-    text-align: right;
+    background-image: url(../images/achievements/top_rated.png);
+}
+
+.achievement__icon_type_great-author
+{
+    background-image: url(../images/achievements/great_author.png);
+}
+
+.achievement__icon_type_bag
+{
+    background-image: url(../images/achievements/bag.png);
+}
+
+.achievement__icon_type_graffity
+{
+    background-image: url(../images/achievements/graffity.png);
+}
+
+.achievement__icon_type_plants
+{
+    background-image: url(../images/achievements/plants.png);
+}
+
+.achievement__icon_type_starred
+{
+    background-image: url(../images/achievements/starred.png);
 }
 
 .content_type_user .section
 {
     margin: 0 0 0 300px;
 }
-
 
 .stat-value
 {
