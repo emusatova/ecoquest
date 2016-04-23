@@ -941,6 +941,12 @@ h1, h2, h3, h4
     padding: 0 0 18px;
 }
 
+.goal__title .link
+{
+    color: #333;
+    text-decoration: none;
+}
+
 .goal__subtitle
 {
     font-size: 10px;
