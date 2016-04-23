@@ -241,8 +241,10 @@ h1, h2, h3, h4
 {
     padding: 30px 0;
     background: #fff;
-
+    margin: 0 0 5px;
     width: 100%;
+
+    box-shadow: 0 2px 2px #a2a5ab;
 }
 
 .header .container
@@ -544,7 +546,7 @@ h1, h2, h3, h4
 
 .panel
 {
-    top: -20px;
+    top: -23px;
     width: 250px;
     position: absolute;
 }
@@ -553,9 +555,6 @@ h1, h2, h3, h4
 {
     margin: 0 0 40px;
 
-    background: -webkit-linear-gradient(top, #f1f3f6 0%, #e1e4e8 100%);
-    background: -o-linear-gradient(top, #f1f3f6 0%, #e1e4e8 100%);
-    background: linear-gradient(to bottom, #f1f3f6 0%, #e1e4e8 100%);
     box-shadow: 0 2px 2px #a2a5ab;
 }
 
@@ -563,6 +562,8 @@ h1, h2, h3, h4
 {
     padding: 30px 0 20px;
     overflow: hidden;
+    background: #fff;
+    border-bottom: 1px solid #dee0e4;
 }
 
 .user__exp
@@ -605,7 +606,7 @@ h1, h2, h3, h4
 {
     font-size: 16px;
     font-weight: 700;
-    color: #1bb8d7;
+    color: #8bc34a;
 }
 
 .user .param
@@ -618,10 +619,75 @@ h1, h2, h3, h4
 
 .user__footer
 {
-    padding: 30px 0 0 50px;
-    background-image: -webkit-linear-gradient(#d1d7dd, #eceef1);
-    background-image: -o-linear-gradient(#d1d7dd, #eceef1);
-    background-image: linear-gradient(#d1d7dd, #eceef1)
+    padding: 10px 20px 20px;
+    border-top: 1px solid #fff;
+    background: #f5f5f5;
+}
+
+.user__role
+{
+    position: relative;
+    text-align: center;
+    padding: 4px 4px 10px;
+    text-transform: uppercase;
+}
+
+.user__role:before
+{
+    display: inline-block;
+    content: '';
+    width: 12px;
+    height: 12px;
+    margin: -3px 5px 0 0;
+    vertical-align: middle;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.user__role_type_beginner:before
+{
+    background: red;
+}
+
+.user__role_type_middle:before
+{
+    background: orange;
+}
+
+.user__role_type_expert:before
+{
+    background: green;
+}
+
+.user__progress
+{
+    text-align: center;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #fff;
+}
+
+.user-menu__item
+{
+    padding: 15px 0 0;
+}
+
+.user-menu__item .link
+{
+    font-size: 14px;
+    color: #515864;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.user-menu__item .link:hover
+{
+    color: #8bc34a;
+}
+
+.user-menu__item .link .fa
+{
+    margin: 0 10px 0 0;
 }
 
 .frame-widget
@@ -762,9 +828,9 @@ h1, h2, h3, h4
 
 .widget-area__subtitle_type_term
 {
-    color: #027dfe;
+    color: #8bc34a;
 
-    border-color: #027dfe;
+    border-color: #8bc34a;
 }
 
 .widget
@@ -781,7 +847,7 @@ h1, h2, h3, h4
 
 .widget .icon
 {
-    display: none; /*TODO заменить иконки и удалить этот стиль*/
+    display: none;
 }
 
 .widget__body
@@ -805,7 +871,7 @@ h1, h2, h3, h4
 .widget_status_finish .widget__foot
 {
     color: #fff;
-    background: #1bb8d7;
+    background: #8bc34a;
 }
 
 .widget_status_failed .widget__foot
@@ -913,10 +979,10 @@ h1, h2, h3, h4
 
 .metrics__item .link
 {
-    color: #1bb8d7;
+    color: #8bc34a;
 }
 
-.metrics__item .ico
+.metrics__item .fa
 {
     margin: 0 4px 3px 0;
 }
@@ -999,6 +1065,10 @@ h1, h2, h3, h4
     content: '►';
 }
 
+.task__title .link
+{
+    color: #333;
+}
 
 /* BEGIN Progressbar Styles */
 .progressbar
