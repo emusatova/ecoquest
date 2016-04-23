@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="page page_auth_yes">
+    <head>
+        <title>Eco Quest</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Сервис улучшающий мир">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+
+        <script id="jqueryScript" type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="plugins/slider/js/jquery.flexslider-min.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('.flexslider').flexslider({
+                    animation: 'fade',
+                    controlNav: false,
+                    directionNav: false
+                });
+            });
+        </script>
+    </head>
+
+    <body class="page__body">
+        <header class="header">
+            <div class="container">
+                <div class="header__col">
+                    <nav class="main-menu">
+                        <a class="link" href="events.html">События</a>
+                        <a class="link" href="news.html">Новости</a>
+                    </nav>
+                </div>
+
+                <div class="header__col">
+                    <a class="logo link" href="index.html"><i class="fa fa-leaf"></i>Eco Quest</a>
+                </div>
+
+                <div class="header__col">
+                    <nav class="authorization-menu">
+                        <a class="link" href="registration.html">Регистрация</a>
+                        <a class="link" href="login.html">Вход</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <section class="content content_type_user">
+            <div class="container">
+                <aside class="panel">
+                    <div class="user">
+                        <header class="user__header">
+                            <div class="user__exp">
+                                <span class="value">0.0</span>
+                                <span class="param">опыт</span>
+                            </div>
+
+                            <div class="user__photo">
+                                <img class="photo" src="">
+                            </div>
+
+                            <div class="user__level">
+                                <span class="value">1</span>
+                                <span class="param">уровень</span>
+                            </div>
+
+                            <h3 class="user__name">Elena Aleksandrovna</h3>
+                        </header>
+
+                        <footer class="user__footer">
+                            <div class="user__progress">
+                                <p class="user__role user__role_type_beginner">Новичок</p>
+                                <p class="user__info"><span class="value">5</span> до следующего уровня</p>
+                            </div>
+
+                            <ul class="user-menu">
+                                <li class="user-menu__item">
+                                    <a class="link" href="events.html"><i class="fa fa-calendar"></i>События</a>
+                                </li>
+                                <li class="user-menu__item">
+                                    <a class="link" href="friends.html"><i class="fa fa-users"></i>Друзья</a>
+                                </li>
+                                <li class="user-menu__item">
+                                    <a class="link" href="settings.html"><i class="fa fa-dashboard"></i>Настройки</a>
+                                </li>
+                                <li class="user-menu__item">
+                                    <a class="link" href="logout.html"><i class="fa fa-sign-out"></i>Выход</a>
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+
+                    <div class="frame-widget achievements">
+                        <section class="achievement">
+                            <i class="achievement__icon achievement__icon_type_top-rated"></i>
+                            <h3 class="achievement__title">Top</h3>
+                            <div class="achievement__date">14 апреля 2016</div>
+                        </section>
+
+                        <section class="achievement">
+                            <i class="achievement__icon achievement__icon_type_great-author"></i>
+                            <h3 class="achievement__title">Great author</h3>
+                            <div class="achievement__date">14 апреля 2016</div>
+                        </section>
+
+                        <section class="achievement">
+                            <i class="achievement__icon achievement__icon_type_bag"></i>
+                            <h3 class="achievement__title">Great author</h3>
+                            <div class="achievement__date">14 апреля 2016</div>
+                        </section>
+                    </div>
+                </aside>
+
+                <section class="section">
+                    <div class="progress-panel">
+                        <div class="progressbar">
+                            <div class="progressbar__wrap">
+                                <div class="progressbar__end" style="width: 19%;"></div>
+                            </div>
+                        </div>
+
+                        <ul class="scale">
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">10</a>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">20</a>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">30</a>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">40</a>
+                                <div class="scale__wrap">
+                                    <i class="arrow arrow_type_point"></i>
+                                    <i class="arrow arrow_type_point"></i>
+                                    <i class="arrow arrow_type_point"></i>
+                                </div>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">50</a>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">60</a>
+                                <div class="scale__wrap">
+                                    <i class="arrow arrow_type_point"></i>
+                                    <i class="arrow arrow_type_point"></i>
+                                    <i class="arrow arrow_type_point"></i>
+                                    <i class="arrow arrow_type_point"></i>
+                                    <i class="arrow arrow_type_point"></i>
+                                </div>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">70</a>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">80</a>
+                                <div class="scale__wrap">
+                                    <i class="arrow arrow_type_point"></i>
+                                </div>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">90</a>
+                            </li>
+                            <li class="scale__item scale__item_size_10">
+                                <a class="point" href="#">100</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="article widget">
+                        <div class="article__col article__col_position_left">
+                            <div class="goal">
+                                <p class="goal__subtitle">знания и навыки</p>
+                                <h1 class="goal__title">Совершить<br>кругосветное<br>велопутешествие</h1>
+
+                                <p class="text">Кругосветное велопутешествие, проходящее через все меридианы планеты и
+                                    составляющее примерную длину экватора — 40 000км.</p>
+                                <p class="text">Так как самый короткий путь вокруг земного шара составляет всего около 28
+                                    000км, то для полного "ощущения" кругосветки я собираюсь растянуть путешествие до 40 000
+                                    км., что и соответствует примерной длине экватора.</p>
+                                <p class="text">Маршрут будет пролегать через страны Европы и Азии, Северную Америку и
+                                    Австралию.</p>
+                                <p class="text">Ежедневный пробег будет составлять 120-170 км. В некоторых городах я
+                                    собираюсь останавливаться на отдых на несколько дней.</p>
+                                <p class="text">В свободное от дороги время я планирую вести блог, в котором буду выкладывать интересные
+                                    фото и видео с описанием пройденного.</p>
+                            </div>
+
+                            <div class="gallery">
+                                <div class="flex-container">
+                                    <div class="flexslider">
+                                        <ul class="slides">
+                                            <li><a href="#"><img src="images/img-temp/slide1.jpg" /></a></li>
+                                            <li><a href="#"><img src="images/img-temp/slide2.jpg" /></a></li>
+                                            <li><img src="images/img-temp/slide3.jpg" /></li>
+                                        </ul>
+
+                                        <ul class="gallery__nav">
+                                            <li class="gallery__left"><i class="gallery-icon gallery-icon_dir_left"></i></li>
+                                            <li class="gallery__state">1 из 3</li>
+                                            <li class="gallery__right"><i class="gallery-icon gallery-icon_dir_right"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="article__wrap">
+                                <div class="plan">
+                                    <ol class="plan__list">
+                                        <li class="plan__item">
+                                            <h3 class="plan__title">Подготовка к путешествию</h3>
+                                            <p class="plan__description">Подготовка к путешествию. Поиск спонсорской помощи,  да и помощи в целом.</p>
+                                        </li>
+                                        <li class="plan__item">
+                                            <h3 class="plan__title">Закуп недостающего снаряжения и уточнение мелких деталей</h3>
+                                            <p class="plan__description">За месяц до начала путешествия, докупаются некоторые вещи, уточняются детали по кругосветке.</p>
+                                        </li>
+                                        <li class="plan__item">
+                                            <h3 class="plan__title plan__title_color_blue">Старт</h3>
+                                            <ol class="plan__sublist">
+                                                <li class="plan__item"><p class="plan__description">Собираем сумки.</p></li>
+                                                <li class="plan__item"><p class="plan__description">Покупаем запчасти.</p></li>
+                                                <li class="plan__item"><p class="plan__description">Выдвигаемся в путь.</p></li>
+                                                <li class="plan__item"><p class="plan__description">Первый пост.</p></li>
+                                            </ol>
+                                        </li>
+                                        <li class="plan__item">
+                                            <h3 class="plan__title">Финиш</h3>
+                                            <p class="plan__description">Вернутся в Омск планируется где-то через год.</p>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="article__col article__col_position_right">
+                            <div class="article__wrap">
+                                <div class="user-widget">
+                                    <img class="user-photo" src="images/user-photo.png">
+
+                                    <div class="user-widget__wrap">
+                                        <p class="user-widget__subtitle">Автор квеста:</p>
+                                        <h3 class="user-widget__name">Savoilova</h3>
+                                        <p class="user-widget__role">Эксперт</p>
+                                    </div>
+                                </div>
+
+                                <div class="notice">
+                                    <p class="notice__subtitle">старт</p>
+                                    <h3 class="notice__title">03.03.16</h3>
+                                    <p class="notice__subtitle">финиш</p>
+                                    <h3 class="notice__title">03.03.16</h3>
+                                </div>
+
+                                <div class="notice">
+                                    <p class="notice__subtitle">стоимость</p>
+                                    <h3 class="notice__title">500 баллов</h3>
+                                </div>
+
+                                <div class="notice">
+                                    <p class="notice__subtitle">статус</p>
+                                    <h3 class="notice__title">Участвую</h3>
+
+                                    <a class="btn" href="#">Выйти</a>
+                                </div>
+
+                                <div class="notice">
+                                    <p class="notice__subtitle">соцсети</p>
+                                    <h3 class="notice__title">Рассказать друзьям</h3>
+
+                                    <ul class="social-menu">
+                                        <li class="social-menu__item">
+                                            <a class="social-btn social-btn_vk" href="#"></a>
+                                        </li>
+                                        <li class="social-menu__item">
+                                            <a class="social-btn social-btn_fb" href="#"></a>
+                                        </li>
+                                        <li class="social-menu__item">
+                                            <a class="social-btn social-btn_tw" href="#"></a>
+                                        </li>
+                                        <li class="social-menu__item">
+                                            <a class="social-btn social-btn_gp" href="#"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="clear"></div>
+
+                                <div class="goals-list">
+                                    <h3 class="goals-list__title">Похожие квесты</h3>
+                                    <ul>
+                                        <li class="goals-list__item">
+                                            <div class="goals-list__body">
+                                                <a class="goals-list__link" href="#">Поехать в первый поход</a>
+                                                <p class="goals-list__text">от&nbsp;<a class="goals-list__link" href="#">Сергей Сергеев</a></p>
+                                            </div>
+                                        </li>
+                                        <li class="goals-list__item">
+                                            <div class="goals-list__body">
+                                                <a class="goals-list__link" href="#">Поехать в первый поход</a>
+                                                <p class="goals-list__text">от&nbsp;<a class="goals-list__link" href="#">Сергей Сергеев</a></p>
+                                            </div>
+                                        </li>
+                                        <li class="goals-list__item">
+                                            <div class="goals-list__body">
+                                                <a class="goals-list__link" href="#">Поехать в первый поход. Поехать в первый поход.</a>
+                                                <p class="goals-list__text">от&nbsp;<a class="goals-list__link" href="#">Сергей Сергеев</a></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-menu">
+                    <div class="column">
+                        <ul class="footer-menu__list">
+                            <li class="footer-menu__item">
+                                <a class="link" href="about.html">О проекте</a>
+                            </li>
+                            <li class="footer-menu__item">
+                                <a class="link" href="team.html">Разработчики</a>
+                            </li>
+                            <li class="footer-menu__item">
+                                <a class="link" href="rules.html">Правила</a>
+                            </li>
+                            <li class="footer-menu__item">
+                                <a class="link" href="mailto:e.musatova@innopolis.ru,v.milenko@innopolis.ru">Контакты</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="column">
+                        <div class="copyright">© 2016 Eco Quest<br>Сервис улучшающий мир</div>
+                    </div>
+
+                    <div class="column">
+                        <div class="social-block">
+                            <span class="social-block__title">Соцсети</span>
+                            <div class="social-block__wrap">
+                                <a class="link" href="vk.html"><i class="fa fa-vk"></i></a>
+                                <a class="link" href="fb.html"><i class="fa fa-facebook"></i></a>
+                                <a class="link" href="tw.html"><i class="fa fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
