@@ -1,0 +1,199 @@
+.ik_select select
+{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 0);
+    position: absolute;
+}
+
+.ik_select
+{
+    width: 160px;
+    position: relative;
+    font: normal 12px/14px Trebuchet MS;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align: middle;
+}
+
+
+.ik_select_link
+{
+    font: normal 12px/1.23em 'PT Sans', Arial;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    font: 12px/15px Trebuchet MS;
+    padding: 5px 22px 5px 7px;
+    background: #fff;
+    color: #737373;
+    overflow: hidden;
+    transition: all linear 0.1s;
+    -webkit-transition: all linear 0.1s;
+    -moz-transition: all linear 0.1s;
+}
+
+.editor .ik_select
+{
+    width: 230px;
+}
+
+.editor .ik_select_link,
+.ik_select_link_theme_grey
+{
+    border-top: 1px solid #e0e0e0;
+    border-left: 1px solid #ededed;
+    border-right: 1px solid #ededed;
+
+    background: #f4f4f4;
+}
+
+.ik_select_link:hover
+{
+    color: #141414;
+    border: 1px solid #ffcc4d;
+    background: #ffcc4d;
+}
+
+
+.ik_select .ik_select_link:after
+{
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 5px;
+    height: 9px;
+
+    background: url(../images/i.png) -150px -277px;
+    content: '';
+}
+
+.ik_select:hover .ik_select_link:after
+{
+    background-position: -114px -276px;
+}
+
+.ik_select_link_text
+{
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    text-overflow: ellipsis;
+}
+
+.ik_select_link_text:after
+{
+    content: "";
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    background: transparent url(/images/images-split.png) -339px -126px;
+    right: 4px;
+    top: 4px;
+}
+
+.ik_select_block
+{
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    left: 0;
+    top: -2px;
+    display: none;
+}
+
+.ik_select_block_right
+{
+    left: auto;
+}
+
+.ik_select_list
+{
+    padding: 15px 10px;
+    position: relative;
+    top: 32px;
+    font: bold 12px/1.23em 'PT Sans', Arial;
+    line-height: 16px;
+    background: #ffcc4d;
+    zoom: 1;
+    *border: 1px solid #000;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+
+.ik_select_list_inner
+{
+    overflow-x: hidden;
+}
+
+.ik_select_optgroup_label
+{
+    color: #7f8080;
+    padding: 0 21px;
+}
+
+.ik_select_list ul
+{
+    margin: 0;
+    padding: 0;
+}
+
+.ik_select_list li
+{
+    list-style: none;
+    margin: 0;
+    cursor: default;
+    padding: 3px 21px;
+    position: relative;
+}
+
+.ik_select_optgroup li
+{
+    padding-left: 42px;
+}
+
+.ik_select_list li.ik_select_hover
+{
+	color:#027dfe;
+}
+
+/*.ik_select_list li.ik_select_active span:after
+{
+    content: "\2713";
+    position: absolute;
+    left: 5px;
+    top: 0;
+}*/
+
+.ik_select.ik_select_disabled .ik_select_link
+{
+    top: 0;
+    box-shadow: none;
+    opacity: 0.5;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity = 50);
+}
+
+/* BEGIN Select for Categories Styles*/
+.ik_select_list_type_categories
+{
+    right: 224px;
+
+    width: 366px;
+}
+
+.ik_select_list_type_categories .ik_select_list_inner
+{
+    height: auto !important;
+}
+
+.ik_select_list_type_categories .ik_select_has_events
+{
+    float: left;
+    width: 37%;
+}
+/* END Select for Categories Styles*/
