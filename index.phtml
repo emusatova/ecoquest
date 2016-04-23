@@ -1,0 +1,44 @@
+<?php
+include "db.php" ?>
+<?php
+    header('Content-Type: text/html; charset=utf-8', true);
+?>
+    <html>
+    <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    </head>
+    <body style="margin: 20px; border:1px solid #fefefe">
+<?php
+$conn->query("SET NAMES utf8");
+$sql = "SELECT * FROM users where `name`='AsTex'";
+$result = $conn->query($sql);
+if($result->num_rows>0){
+    while($row = $result->fetch_assoc()){
+        echo "Name : " . $row["Name"] . " Level: " . $row["Level"];
+    }
+}
+?>
+<div style="margin-top: 20px;padding: 10px; border: 1px solid #afefef">
+    <?php
+    $sql = "SELECT * FROM events where Author_id=1";
+    $result = $conn->query($sql);
+    if($result->num_rows>0){
+        while ($row = $result->fetch_assoc()){
+            echo "<h3>" . $row["Title"] . "</h3>";
+        }
+    }
+    ?>
+    
+    <?php
+        $sql = "SELECT Image_link From achievements where Id=1";
+    $result = $conn->query($sql);
+    if($result->num_rows>0){
+        while ($row = $result->fetch_assoc()){
+            echo "<img src='".$row["Image_link"]."'></img>";
+        }
+    }
+    
+    ?>
+</div>
+<body>
+</html >

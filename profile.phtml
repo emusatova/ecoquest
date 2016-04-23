@@ -1,0 +1,404 @@
+<?php
+include "db.php" ?>
+
+<?php
+$conn->query("SET NAMES utf8");
+$sql = "SELECT * FROM users,levels where `name`='AsTex' and levels.level=users.Level";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $uid = $row["id"];
+        $name = $row["Name"];
+        $experience = $row["Experience"];
+        $level = $row["Level"];
+        $image = $row["Picture_link"];
+        $level_description = $row["description"];
+    }
+}
+
+?>
+<!DOCTYPE html>
+<html class="page page_auth_yes">
+<head>
+    <title>Eco Quest</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Сервис, помогающий достигать поставленных целей">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/moment.min.js"></script>
+</head>
+
+<body class="page__body">
+<header class="header">
+    <div class="container">
+        <div class="header__col">
+            <nav class="main-menu">
+                <a class="link" href="events.html">События</a>
+                <a class="link" href="news.html">Новости</a>
+            </nav>
+        </div>
+
+        <div class="header__col">
+            <a class="logo link" href="index.html">Eco Quest</a>
+        </div>
+
+        <div class="header__col">
+            <nav class="authorization-menu">
+                <a class="link" href="registration.html">Регистрация</a>
+                <a class="link" href="login.html">Вход</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<section class="content content_type_user">
+    <div class="container">
+        <aside class="panel">
+            <div class="user">
+                <header class="user__header">
+                    <div class="user__exp">
+                        <span class="value">0.0</span>
+                        <span class="param">опыт</span>
+                    </div>
+
+                    <div class="user__photo">
+                        <img class="photo" src="">
+                    </div>
+
+                    <div class="user__level">
+                        <span class="value">1</span>
+                        <span class="param">уровень</span>
+                    </div>
+
+                    <h3 class="user__name"><?php echo($name) ?></h3>
+                </header>
+
+                <footer class="user__footer">
+                    <div class="user__progress">
+                        <p class="user__role"><?php echo($level_description) ?></p>
+                        <p class="user__info"><?php echo(100 - $experience) ?> до следующего уровня</p>
+                    </div>
+
+                    <ul class="user-menu">
+                        <li class="user-menu__item">
+                            <a class="link" href="events.html"><i class="fa fa-calendar"></i>События</a>
+                        </li>
+                        <li class="user-menu__item">
+                            <a class="link" href="friends.html"><i class="fa fa-users"></i>Друзья</a>
+                        </li>
+                        <li class="user-menu__item">
+                            <a class="link" href="settings.html"><i class="fa fa-dashboard"></i>Настройки</a>
+                        </li>
+                        <li class="user-menu__item">
+                            <a class="link" href="logout.html"><i class="fa fa-sign-out"></i>Выход</a>
+                        </li>
+                    </ul>
+                </footer>
+            </div>
+
+            <div class="frame-widget news-feed">
+                <?php
+                $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . id . " and events.finished = false";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+
+                        echo ("<article class=\"news-article\">");
+                        echo ("<h3 class=\"news-article__title\">".$row["Title"]."</h3>");
+                        echo  ("<div class=\"news-article__description\">". $row["ShortDescription"] ."</div>");
+                        $date = $row["Date_start"];
+                        $date = strtotime($date);
+                        $day = date("d", $date);
+                        $mon = date("M", $date);
+                        $year = date("Y", $date);
+                        echo ("<div class=\"news-article__date\">".$day. " " . $mon . " " . $year . "</div>");
+
+                    }
+                }
+                ?>
+                <article class="news-article">
+                    <h3 class="news-article__title">Заголовок 1</h3>
+                    <div class="news-article__description">Краткое описание</div>
+                    <div class="news-article__date">14 апреля 2016</div>
+                </article>
+
+                <article class="news-article">
+                    <h3 class="news-article__title">Заголовок 1</h3>
+                    <div class="news-article__description">Краткое описание</div>
+                    <div class="news-article__date">14 апреля 2016</div>
+                </article>
+
+                <article class="news-article">
+                    <h3 class="news-article__title">Заголовок 1</h3>
+                    <div class="news-article__description">Краткое описание</div>
+                    <div class="news-article__date">14 апреля 2016</div>
+                </article>
+            </div>
+        </aside>
+
+        <section class="section">
+            <div class="widget-area">
+                <div class="widget-area__col widget-area__col_position_left">
+                    <h4 class="widget-area__subtitle widget-area__subtitle_type_term">Активные</h4>
+
+                    <div class="widget">
+                        <div class="widget__body">
+                            <div class="goal">
+                                <p class="goal__subtitle">категория</p>
+                                <h2 class="goal__title">заголовок</h2>
+
+                                <ul class="metrics">
+                                    <li class="metrics__item"><i class="fa fa-users"></i>370</li>
+                                    <li class="metrics__item"><i class="fa fa-clock-o"></i>23 января 2012</li>
+                                    <li class="metrics__item"><i class="fa fa-star"></i>3</li>
+                                </ul>
+
+                                <div class="counter counter_state_normal">
+                                            <span class="counter__wrap">
+                                                <span class="counter__result">45</span>
+                                            </span>
+                                </div>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="widget__foot">
+                            <div class="progressbar">
+                                <div class="progressbar__wrap">
+                                    <div class="progressbar__end" style="width: 45%;"></div>
+                                </div>
+                            </div>
+                            <p class="goal-date">20 января 2010</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-area__col widget-area__col_position_right">
+                    <h4 class="widget-area__subtitle">Завершённые</h4>
+
+                    <div class="widget widget_status_failed">
+                        <i class="ico ico_action_move"></i>
+                        <div class="widget__body">
+                            <div class="goal">
+                                <p class="goal__subtitle">Бизнес и стартапы</p>
+                                <h2 class="goal__title">Совершить кругосветное путешествие на яхте</h2>
+
+                                <ul class="metrics">
+                                    <li class="metrics__item"><i class="fa fa-users"></i>370</li>
+                                    <li class="metrics__item"><i class="fa fa-clock-o"></i>23 января 2012</li>
+                                    <li class="metrics__item"><i class="fa fa-star"></i>3</li>
+                                </ul>
+
+                                <div class="counter counter_state_plus">
+                                        <span class="counter__wrap">
+                                            <span class="counter__result">13</span>
+                                        </span>
+                                </div>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="widget__foot">
+                            <p class="goal-status">Провалено<span class="goal-date">20 января 2010</span></p>
+                        </div>
+                    </div>
+
+                    <div class="widget widget_status_finish">
+                        <i class="ico ico_action_move"></i>
+                        <div class="widget__body">
+                            <div class="goal">
+                                <p class="goal__subtitle">Бизнес и стартапы</p>
+                                <h2 class="goal__title">Совершить кругосветное путешествие на яхте <i
+                                        class="ico ico_type_lock"></i></h2>
+
+                                <ul class="metrics">
+                                    <li class="metrics__item"><i class="fa fa-users"></i>370</li>
+                                    <li class="metrics__item"><i class="fa fa-clock-o"></i>23 января 2012</li>
+                                    <li class="metrics__item"><i class="fa fa-star"></i>3</li>
+                                </ul>
+
+                                <div class="counter counter_state_minus">
+                                        <span class="counter__wrap">
+                                            <span class="counter__result">9</span>
+                                        </span>
+                                </div>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="widget__foot">
+                            <p class="goal-status">Завершено<span class="goal-date">20 января 2010</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+
+            <div class="widget-area">
+                <h4 class="widget-area__subtitle widget-area__subtitle_type_term">
+                    Ближайшие события<span class="goal-date">&nbsp;&nbsp;(до начала менее 5 дней)</span>
+                </h4>
+
+                <div class="widget-area__col widget-area__col_position_left">
+                    <div class="widget">
+                        <div class="widget__body">
+                            <div class="task">
+                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
+                                    <span class="deadline__day">13</span>
+                                    <br>
+                                    <span class="deadline__month">мар</span>
+                                </a>
+
+                                <div class="task__wrap">
+                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
+                                            оборудование оборудование</a></h3>
+                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
+                                        «Открыть магазин цветов»</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget__body">
+                            <div class="task">
+                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
+                                    <span class="deadline__day">13</span>
+                                    <br>
+                                    <span class="deadline__month">мар</span>
+                                </a>
+
+                                <div class="task__wrap">
+                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
+                                            оборудование оборудование</a></h3>
+                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
+                                        «Открыть магазин цветов»</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget__body">
+                            <div class="task">
+                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
+                                    <span class="deadline__day">13</span>
+                                    <br>
+                                    <span class="deadline__month">мар</span>
+                                </a>
+
+                                <div class="task__wrap">
+                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
+                                            оборудование оборудование</a></h3>
+                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
+                                        «Открыть магазин цветов»</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-area__col widget-area__col_position_right">
+                    <div class="widget">
+                        <div class="widget__body">
+                            <div class="task">
+                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
+                                    <span class="deadline__day">13</span>
+                                    <br>
+                                    <span class="deadline__month">мар</span>
+                                </a>
+
+                                <div class="task__wrap">
+                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
+                                            оборудование оборудование</a></h3>
+                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
+                                        «Открыть магазин цветов»</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget__body">
+                            <div class="task">
+                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
+                                    <span class="deadline__day">13</span>
+                                    <br>
+                                    <span class="deadline__month">мар</span>
+                                </a>
+
+                                <div class="task__wrap">
+                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
+                                            оборудование оборудование</a></h3>
+                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
+                                        «Открыть магазин цветов»</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget__body">
+                            <div class="task">
+                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
+                                    <span class="deadline__day">13</span>
+                                    <br>
+                                    <span class="deadline__month">мар</span>
+                                </a>
+
+                                <div class="task__wrap">
+                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
+                                            оборудование оборудование</a></h3>
+                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
+                                        «Открыть магазин цветов»</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-menu">
+            <div class="column">
+                <ul class="footer-menu__list">
+                    <li class="footer-menu__item">
+                        <a class="link" href="about.html">О проекте</a>
+                    </li>
+                    <li class="footer-menu__item">
+                        <a class="link" href="team.html">Разработчики</a>
+                    </li>
+                    <li class="footer-menu__item">
+                        <a class="link" href="rules.html">Правила</a>
+                    </li>
+                    <li class="footer-menu__item">
+                        <a class="link" href="mailto:e.musatova@innopolis.ru,v.milenko@innopolis.ru">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="column">
+                <div class="copyright">© 2016 Eco Quest<br>Сервис улучшающий мир</div>
+            </div>
+
+            <div class="column">
+                <div class="social-block">
+                    <span class="social-block__title">Соцсети</span>
+                    <div class="social-block__wrap">
+                        <a class="link" href="vk.html"><i class="fa fa-vk"></i></a>
+                        <a class="link" href="fb.html"><i class="fa fa-facebook"></i></a>
+                        <a class="link" href="tw.html"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

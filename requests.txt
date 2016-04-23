@@ -1,0 +1,5 @@
+get profile : "SELECT * FROM users where `name`='AsTex'";
+
+get quest info : "SELECT * FROM events,events_partial_data WHERE events.Id = 1 AND events.Id=events_partial_data.Event_id;"
+
+get user_achievements:
