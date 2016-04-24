@@ -57,16 +57,16 @@ if ($result->num_rows > 0) {
             <div class="user">
                 <header class="user__header">
                     <div class="user__exp">
-                        <span class="value"><?php echo ($experience) ?></span>
+                        <span class="value"><?php echo($experience) ?></span>
                         <span class="param">опыт</span>
                     </div>
 
                     <div class="user__photo">
-                        <img class="photo" src="<?php echo ($image)?>">
+                        <img class="photo" src="<?php echo($image) ?>">
                     </div>
 
                     <div class="user__level">
-                        <span class="value"><?php echo ($level) ?></span>
+                        <span class="value"><?php echo($level) ?></span>
                         <span class="param">уровень</span>
                     </div>
 
@@ -75,8 +75,9 @@ if ($result->num_rows > 0) {
 
                 <footer class="user__footer">
                     <div class="user__progress">
-                        <p class="user__role <?php echo ($level_class) ?>"><?php echo($level_description) ?></p>
-                        <p class="user__info"><span class="value"> <?php echo(100 - $experience) ?></span> до следующего уровня</p>
+                        <p class="user__role <?php echo($level_class) ?>"><?php echo($level_description) ?></p>
+                        <p class="user__info"><span class="value"> <?php echo(100 - $experience) ?></span> до следующего
+                            уровня</p>
                     </div>
 
                     <ul class="user-menu">
@@ -95,41 +96,31 @@ if ($result->num_rows > 0) {
                     </ul>
                 </footer>
             </div>
-
-            <div class="frame-widget news-feed">
-
-                <article class="news-article">
-                    <h3 class="news-article__title">Заголовок 1</h3>
-                    <div class="news-article__description">Краткое описание</div>
-                    <div class="news-article__date">14 апреля 2016</div>
-                </article>
-
-                <article class="news-article">
-                    <h3 class="news-article__title">Заголовок 1</h3>
-                    <div class="news-article__description">Краткое описание</div>
-                    <div class="news-article__date">14 апреля 2016</div>
-                </article>
-
-                <article class="news-article">
-                    <h3 class="news-article__title">Заголовок 1</h3>
-                    <div class="news-article__description">Краткое описание</div>
-                    <div class="news-article__date">14 апреля 2016</div>
-                </article>
-            </div>
+            <?php
+            $result = $conn->query("SELECT * FROM user_achievements JOIN achievements ON achievements.Id = achievement_id WHERE user_id=" . $uid . " and achievements.Id = achievement_id");
+            if ($result->num_rows > 0) {
+                echo("<div class=\"frame-widget achievements\">");
+                while ($row = $result->fetch_assoc()) {
+                    echo("<section class=\"achievement\">");
+                    echo("<i class=\"achievement__icon " . $row["css_class"] . "\"></i>");
+                    echo("<h3 class=\"achievement__title\">" . $row["Title"] . "</h3>");
+                    echo("<div class=\"achievement__date\">" . date("d M Y", strtotime($row["Date_received"])) . "</div>");
+                    echo("</section>");
+                }
+                echo("</div>");
+            }
+            ?>
         </aside>
-
         <section class="section">
             <div class="widget-area">
                 <div class="widget-area__col widget-area__col_position_left">
                     <h4 class="widget-area__subtitle widget-area__subtitle_type_term">Активные</h4>
-
-
                     <?php
                     $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . $uid . " and events.finished = false";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            $sql = "SELECT COUNT(*) as total FROM event_participants WHERE Event_id = " .$row["Id"];
+                            $sql = "SELECT COUNT(*) as total FROM event_participants WHERE Event_id = " . $row["Id"];
                             $cnt_res = $conn->query($sql);
                             $data = $cnt_res->fetch_assoc();
                             $cnt = $data["total"];
@@ -138,32 +129,31 @@ if ($result->num_rows > 0) {
                             $day = date("d", $date);
                             $mon = date("M", $date);
                             $year = date("Y", $date);
-                            echo ("<div class=\"widget\">");
-                                echo ("<div class=\"widget__body\">");
-                                    echo ("<div class=\"goal\">");
-                                        echo ("<p class=\"goal__subtitle\">".$row["Type"]."</p>");
-                                        echo ("<h2 class=\"goal__title\">".$row["Title"]."</h2>");
-                                        echo ("<ul class=\"metrics\">");
-                                            echo ("<li class=\"metrics__item\"><i class=\"fa fa-users\"></i>".$cnt."</li>");
-                                            echo ("<li class=\"metrics__item\"><i class=\"fa fa-clock-o\"></i>".$day. " " . $mon . " " . $year . "</li>");
-                                        echo ("</ul>");
-                                        echo ("<div class=\"counter counter_state_normal\">");
-                                            echo ("<span class=\"counter__wrap\">");
-                                            echo ("<span class=\"counter__result\">".$row["progress"]."</span>");
-                                            echo ("</span>");
-                                        echo ("</div>");
-                                    echo ("<div class=\"clear\"></div>");
-                                    echo ("</div>");
-                                echo ("</div>");
-                            echo ("<div class=\"widget__foot\">");
-                                echo ("<div class=\"progressbar\">");
-                                    echo ("<div class=\"progressbar__wrap\">");
-                                        echo ("<div class=\"progressbar__end\" style=\"width: ".$row["progress"]."%;\"></div>");
-                                    echo ("</div>");
-                                echo ("</div>");
-                            echo ("<p class=\"goal-date\">".$day. " " . $mon . " " . $year . "</p>");
-                                echo ("</div>");
-                            echo ("</div>");
+                            echo("<div class=\"widget\">");
+                            echo("<div class=\"widget__body\">");
+                            echo("<div class=\"goal\">");
+                            echo("<p class=\"goal__subtitle\">" . $row["Type"] . "</p>");
+                            echo("<h2 class=\"goal__title\">" . $row["Title"] . "</h2>");
+                            echo("<ul class=\"metrics\">");
+                            echo("<li class=\"metrics__item\"><i class=\"fa fa-users\"></i>" . $cnt . "</li>");
+                            echo("<li class=\"metrics__item\"><i class=\"fa fa-clock-o\"></i>" . $day . " " . $mon . " " . $year . "</li>");
+                            echo("</ul>");
+                            echo("<div class=\"counter counter_state_normal\">");
+                            echo("<span class=\"counter__wrap\">");
+                            echo("<span class=\"counter__result\">" . $row["progress"] . "</span>");
+                            echo("</span>");
+                            echo("</div>");
+                            echo("<div class=\"clear\"></div>");
+                            echo("</div>");
+                            echo("</div>");
+                            echo("<div class=\"widget__foot\">");
+                            echo("<div class=\"progressbar\">");
+                            echo("<div class=\"progressbar__wrap\">");
+                            echo("<div class=\"progressbar__end\" style=\"width: " . (100-$row["progress"]) . "%;\"></div>");
+                            echo("</div>");
+                            echo("</div>");
+                            echo("</div>");
+                            echo("</div>");
                         }
                     }
                     ?>
@@ -172,61 +162,67 @@ if ($result->num_rows > 0) {
 
                 <div class="widget-area__col widget-area__col_position_right">
                     <h4 class="widget-area__subtitle">Завершённые</h4>
+                    <?php
+                    $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . $uid . " and events.finished = true";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $sql = "SELECT COUNT(*) as total FROM event_participants WHERE Event_id = " . $row["Id"];
+                            $cnt_res = $conn->query($sql);
+                            $data = $cnt_res->fetch_assoc();
+                            $cnt = $data["total"];
+                            $failed = $row["failed"];
+                            if ($failed) {
+                                $res = "Провалено";
+                            } else {
+                                $res = "Завершено";
+                            }
+                            $date = $row["Date_start"];
+                            $date = strtotime($date);
+                            $day = date("d", $date);
+                            $mon = date("F", $date);
+                            $year = date("Y", $date);
 
-                    <div class="widget widget_status_failed">
-                        <i class="ico ico_action_move"></i>
-                        <div class="widget__body">
-                            <div class="goal">
-                                <p class="goal__subtitle">Бизнес и стартапы</p>
-                                <h2 class="goal__title">Совершить кругосветное путешествие на яхте</h2>
+                            $date_e = $row["Date_end"];
+                            $date_e = strtotime($date_e);
+                            $day_e = date("d", $date_e);
+                            $mon_e = date("F", $date_e);
+                            $year_e = date("Y", $date_e);
+                            if ($failed) {
 
-                                <ul class="metrics">
-                                    <li class="metrics__item"><i class="fa fa-users"></i>370</li>
-                                    <li class="metrics__item"><i class="fa fa-clock-o"></i>23 января 2012</li>
-                                    <li class="metrics__item"><i class="fa fa-star"></i>3</li>
-                                </ul>
+                                echo("<div class=\"widget widget_status_failed\">");
+                            } else {
+                                echo("<div class=\"widget\">");
+                            }
+                            echo("<div class=\"widget__body\">");
+                            echo("<div class=\"goal\">");
+                            echo("<p class=\"goal__subtitle\">" . $row["Type"] . "</p>");
+                            echo("<h2 class=\"goal__title\">" . $row["Title"] . "</h2>");
+                            echo("<ul class=\"metrics\">");
+                            echo("<li class=\"metrics__item\"><i class=\"fa fa-users\"></i>" . $cnt . "</li>");
+                            echo("<li class=\"metrics__item\"><i class=\"fa fa-clock-o\"></i>" . $day . " " . $mon . " " . $year . "</li>");
+                            echo("</ul>");
+                            if ($failed) {
+                                echo("<div class=\"counter counter_state_minus\">");
+                            } else {
+                                echo("<div class=\"counter counter_state_plus\">");
+                            }
 
-                                <div class="counter counter_state_plus">
-                                        <span class="counter__wrap">
-                                            <span class="counter__result">13</span>
-                                        </span>
-                                </div>
+                            echo("<span class=\"counter__wrap\">");
+                            echo("<span class=\"counter__result\">" . $row["progress"] . "</span>");
+                            echo("</span>");
+                            echo("</div>");
+                            echo("<div class=\"clear\"></div>");
+                            echo("</div>");
+                            echo("</div>");
+                            echo("<div class=\"widget__foot\">");
 
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="widget__foot">
-                            <p class="goal-status">Провалено<span class="goal-date">20 января 2010</span></p>
-                        </div>
-                    </div>
-
-                    <div class="widget widget_status_finish">
-                        <i class="ico ico_action_move"></i>
-                        <div class="widget__body">
-                            <div class="goal">
-                                <p class="goal__subtitle">Бизнес и стартапы</p>
-                                <h2 class="goal__title">Совершить кругосветное путешествие на яхте <i
-                                        class="ico ico_type_lock"></i></h2>
-
-                                <ul class="metrics">
-                                    <li class="metrics__item"><i class="fa fa-users"></i>370</li>
-                                    <li class="metrics__item"><i class="fa fa-clock-o"></i>23 января 2012</li>
-                                    <li class="metrics__item"><i class="fa fa-star"></i>3</li>
-                                </ul>
-
-                                <div class="counter counter_state_minus">
-                                        <span class="counter__wrap">
-                                            <span class="counter__result">9</span>
-                                        </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        <div class="widget__foot">
-                            <p class="goal-status">Завершено<span class="goal-date">20 января 2010</span></p>
-                        </div>
-                    </div>
+                            echo("<p class=\"goal-status\">" . $res . "<span class=\"goal-date\">" . $day_e . " " . $mon_e . " " . $year_e . "</span></p>");
+                            echo("</div>");
+                            echo("</div>");
+                        }
+                    }
+                    ?>
                 </div>
 
                 <div class="clear"></div>
@@ -238,122 +234,42 @@ if ($result->num_rows > 0) {
                 </h4>
 
                 <div class="widget-area__col widget-area__col_position_left">
-                    <div class="widget">
-                        <div class="widget__body">
-                            <div class="task">
-                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
-                                    <span class="deadline__day">13</span>
-                                    <br>
-                                    <span class="deadline__month">мар</span>
-                                </a>
-
-                                <div class="task__wrap">
-                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
-                                            оборудование оборудование</a></h3>
-                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
-                                        «Открыть магазин цветов»</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget">
-                        <div class="widget__body">
-                            <div class="task">
-                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
-                                    <span class="deadline__day">13</span>
-                                    <br>
-                                    <span class="deadline__month">мар</span>
-                                </a>
-
-                                <div class="task__wrap">
-                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
-                                            оборудование оборудование</a></h3>
-                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
-                                        «Открыть магазин цветов»</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget">
-                        <div class="widget__body">
-                            <div class="task">
-                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
-                                    <span class="deadline__day">13</span>
-                                    <br>
-                                    <span class="deadline__month">мар</span>
-                                </a>
-
-                                <div class="task__wrap">
-                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
-                                            оборудование оборудование</a></h3>
-                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
-                                        «Открыть магазин цветов»</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                    $today = getdate();
+                    $today = new DateTime(date('Y-m-d', time()));
+                    $coming = $today->add(new DateInterval("P5D"));
+                    $today = new DateTime(date('Y-m-d', time()));
+                    $sql = "SELECT * FROM events WHERE Date_start <= '" . $coming->format('Y-m-d') . "' AND Date_start > '" . $today->format('Y-m-d') . "' ORDER BY Date_start ASC";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $sql = "SELECT COUNT(*) as total FROM event_participants WHERE Event_id = " . $row["Id"];
+                            $cnt_res = $conn->query($sql);
+                            $data = $cnt_res->fetch_assoc();
+                            $date = $row["Date_start"];
+                            $date = strtotime($date);
+                            $day = date("d", $date);
+                            $mon = date("M", $date);
+                            echo("<div class=\"widget\">");
+                            echo("<div class=\"widget__body\">");
+                            echo("<div class=\"task\">");
+                            echo("<a class=\"deadline\" rel=\"tooltip\" data-placement=\"top\" data-original-title=\"Дедлайн\">");
+                            echo("<span class=\"deadline__day\">" . $day . "</span>");
+                            echo("<br>");
+                            echo("<span class=\"deadline__month\">".$mon."</span>");
+                            echo("</a>");
+                            echo("<div class=\"task__wrap\">");
+                            echo("<h3 class=\"task__title\"><a class=\"link\" href=\"event.html\">" . $row["Title"] . "</a></h3>");
+                            echo("<p class=\"task__description\">" . $row["Short_Description"] . "</p>");
+                            echo("</div>");
+                            echo("</div>");
+                            echo("</div>");
+                            echo("</div>");
+                        }
+                    }
+                    ?>
                 </div>
 
-                <div class="widget-area__col widget-area__col_position_right">
-                    <div class="widget">
-                        <div class="widget__body">
-                            <div class="task">
-                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
-                                    <span class="deadline__day">13</span>
-                                    <br>
-                                    <span class="deadline__month">мар</span>
-                                </a>
-
-                                <div class="task__wrap">
-                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
-                                            оборудование оборудование</a></h3>
-                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
-                                        «Открыть магазин цветов»</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget">
-                        <div class="widget__body">
-                            <div class="task">
-                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
-                                    <span class="deadline__day">13</span>
-                                    <br>
-                                    <span class="deadline__month">мар</span>
-                                </a>
-
-                                <div class="task__wrap">
-                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
-                                            оборудование оборудование</a></h3>
-                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
-                                        «Открыть магазин цветов»</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget">
-                        <div class="widget__body">
-                            <div class="task">
-                                <a class="deadline" rel="tooltip" data-placement="top" data-original-title="Дедлайн">
-                                    <span class="deadline__day">13</span>
-                                    <br>
-                                    <span class="deadline__month">мар</span>
-                                </a>
-
-                                <div class="task__wrap">
-                                    <h3 class="task__title"><a class="link" href="event.html">Купить холодильное
-                                            оборудование оборудование</a></h3>
-                                    <p class="task__description">этап 3 в цели «Открыть магазин цветов», этап 3 в цели
-                                        «Открыть магазин цветов»</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="clear"></div>
             </div>
