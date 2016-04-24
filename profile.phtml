@@ -2,8 +2,21 @@
 include "db.php" ?>
 
 <?php
+error_reporting(0);
 $conn->query("SET NAMES utf8");
-$sql = "SELECT * FROM users,levels where `name`='AsTex' and levels.level=users.Level";
+try{
+    $requested = $_GET["userId"];
+
+}
+catch (Exception $e){
+
+}
+if($requested == null) {
+    $sql = "SELECT * FROM users,levels where `name`='AsTex' and levels.level=users.Level";
+}
+else{
+    $sql = "SELECT * FROM users,levels where `id`=".$requested." and levels.level=users.Level";
+}
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -116,10 +129,11 @@ if ($result->num_rows > 0) {
                 <div class="widget-area__col widget-area__col_position_left">
                     <h4 class="widget-area__subtitle widget-area__subtitle_type_term">Активные</h4>
                     <?php
-                    $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . $uid . " and events.finished = false";
+                    $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . $uid . " and events.finished = false and events.Id=event_participants.Event_id";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
+                            $eid=$row["Id"];
                             $sql = "SELECT COUNT(*) as total FROM event_participants WHERE Event_id = " . $row["Id"];
                             $cnt_res = $conn->query($sql);
                             $data = $cnt_res->fetch_assoc();
@@ -133,14 +147,14 @@ if ($result->num_rows > 0) {
                             echo("<div class=\"widget__body\">");
                             echo("<div class=\"goal\">");
                             echo("<p class=\"goal__subtitle\">" . $row["Type"] . "</p>");
-                            echo("<h2 class=\"goal__title\">" . $row["Title"] . "</h2>");
+                            echo("<h2 class=\"goal__title\"><a class=\"link\" href=\"event.phtml?eventId=".$eid."\">" . $row["Title"] . "</a></h2>");
                             echo("<ul class=\"metrics\">");
                             echo("<li class=\"metrics__item\"><i class=\"fa fa-users\"></i>" . $cnt . "</li>");
                             echo("<li class=\"metrics__item\"><i class=\"fa fa-clock-o\"></i>" . $day . " " . $mon . " " . $year . "</li>");
                             echo("</ul>");
                             echo("<div class=\"counter counter_state_normal\">");
                             echo("<span class=\"counter__wrap\">");
-                            echo("<span class=\"counter__result\">" . $row["progress"] . "</span>");
+                            echo("<span class=\"counter__result\">" . $row["points"]*($row["progress"]/100) . "</span>");
                             echo("</span>");
                             echo("</div>");
                             echo("<div class=\"clear\"></div>");
@@ -163,10 +177,11 @@ if ($result->num_rows > 0) {
                 <div class="widget-area__col widget-area__col_position_right">
                     <h4 class="widget-area__subtitle">Завершённые</h4>
                     <?php
-                    $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . $uid . " and events.finished = true";
+                    $sql = "SELECT * FROM events,event_participants WHERE event_participants.User_id = " . $uid . " and events.finished = true and events.Id=event_participants.Event_id";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
+                            $eid = $row["Id"];
                             $sql = "SELECT COUNT(*) as total FROM event_participants WHERE Event_id = " . $row["Id"];
                             $cnt_res = $conn->query($sql);
                             $data = $cnt_res->fetch_assoc();
@@ -197,7 +212,7 @@ if ($result->num_rows > 0) {
                             echo("<div class=\"widget__body\">");
                             echo("<div class=\"goal\">");
                             echo("<p class=\"goal__subtitle\">" . $row["Type"] . "</p>");
-                            echo("<h2 class=\"goal__title\">" . $row["Title"] . "</h2>");
+                            echo("<h2 class=\"goal__title\"><a class=\"link\" href=\"event.phtml?eventId=".$eid."\">" . $row["Title"] . "</a></h2>");
                             echo("<ul class=\"metrics\">");
                             echo("<li class=\"metrics__item\"><i class=\"fa fa-users\"></i>" . $cnt . "</li>");
                             echo("<li class=\"metrics__item\"><i class=\"fa fa-clock-o\"></i>" . $day . " " . $mon . " " . $year . "</li>");
@@ -209,7 +224,7 @@ if ($result->num_rows > 0) {
                             }
 
                             echo("<span class=\"counter__wrap\">");
-                            echo("<span class=\"counter__result\">" . $row["progress"] . "</span>");
+                            echo("<span class=\"counter__result\">" . $row["points"]*($row["progress"]/100) . "</span>");
                             echo("</span>");
                             echo("</div>");
                             echo("<div class=\"clear\"></div>");

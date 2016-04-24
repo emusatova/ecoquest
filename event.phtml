@@ -1,0 +1,400 @@
+<?php
+include "db.php" ?>
+
+<?php
+$conn->query("SET NAMES utf8");
+$sql = "SELECT * FROM users,levels where `name`='AsTex' and levels.level=users.Level";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $uid = $row["id"];
+        $name = $row["Name"];
+        $experience = $row["Experience"];
+        $level = $row["Level"];
+        $image = $row["Picture_link"];
+        $level_description = $row["description"];
+        $level_class = $row["css_class"];
+    }
+}
+
+
+?>
+<?php
+$event_id = $_GET["eventId"];
+$result = $conn->query("SELECT COUNT(*) as result FROM event_participants WHERE Event_id =" . $event_id . " and User_id=" . $uid);
+$data = $result->fetch_assoc();
+$cnt = $data["result"];
+if ($cnt > 0) {
+    $participate = true;
+} else {
+    $participate = false;
+}
+$result = $conn->query("SELECT * FROM events where Id=" . $event_id);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $title = $row["Title"];
+        $description = $row["Description"];
+        $type = $row["Type"];
+        $progress = $row["progress"];
+        $date_start = $row["Date_start"];
+        $date_end = $row["Date_end"];
+        $points = $row["points"];
+        $image_link = $row["Image_link"];
+        $author_id = $row["Author_id"];
+
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html class="page page_auth_yes">
+<head>
+    <title>Eco Quest</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Сервис улучшающий мир">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <script id="jqueryScript" type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="plugins/slider/js/jquery.flexslider-min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('.flexslider').flexslider({
+                animation: 'fade',
+                controlNav: false,
+                directionNav: false
+            });
+        });
+    </script>
+</head>
+
+<body class="page__body">
+<header class="header">
+    <div class="container">
+        <div class="header__col">
+            <nav class="main-menu">
+                <a class="link" href="events.html">События</a>
+                <a class="link" href="news.html">Новости</a>
+            </nav>
+        </div>
+
+        <div class="header__col">
+            <a class="logo link" href="index.html"><i class="fa fa-leaf"></i>Eco Quest</a>
+        </div>
+
+        <div class="header__col">
+            <nav class="authorization-menu">
+                <a class="link" href="registration.html">Регистрация</a>
+                <a class="link" href="login.html">Вход</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<section class="content content_type_user">
+    <div class="container">
+        <aside class="panel">
+            <div class="user">
+                <header class="user__header">
+                    <div class="user__exp">
+                        <span class="value"><?php echo($experience) ?></span>
+                        <span class="param">опыт</span>
+                    </div>
+
+                    <div class="user__photo">
+                        <img class="photo" src="<?php echo($image) ?>">
+                    </div>
+
+                    <div class="user__level">
+                        <span class="value"><?php echo($level) ?></span>
+                        <span class="param">уровень</span>
+                    </div>
+
+                    <h3 class="user__name"><?php echo($name) ?></h3>
+                </header>
+
+                <footer class="user__footer">
+                    <div class="user__progress">
+                        <p class="user__role <?php echo($level_class) ?>"><?php echo($level_description) ?></p>
+                        <p class="user__info"><span class="value"> <?php echo(100 - $experience) ?></span> до
+                            следующего
+                            уровня</p>
+                    </div>
+
+                    <ul class="user-menu">
+                        <li class="user-menu__item">
+                            <a class="link" href="events.html"><i class="fa fa-calendar"></i>События</a>
+                        </li>
+                        <li class="user-menu__item">
+                            <a class="link" href="friends.html"><i class="fa fa-users"></i>Друзья</a>
+                        </li>
+                        <li class="user-menu__item">
+                            <a class="link" href="settings.html"><i class="fa fa-dashboard"></i>Настройки</a>
+                        </li>
+                        <li class="user-menu__item">
+                            <a class="link" href="logout.html"><i class="fa fa-sign-out"></i>Выход</a>
+                        </li>
+                    </ul>
+                </footer>
+            </div>
+            <?php
+            $result = $conn->query("SELECT * FROM user_achievements JOIN achievements ON achievements.Id = achievement_id WHERE user_id=" . $uid . " and achievements.Id = achievement_id");
+            if ($result->num_rows > 0) {
+                echo("<div class=\"frame-widget achievements\">");
+                while ($row = $result->fetch_assoc()) {
+                    echo("<section class=\"achievement\">");
+                    echo("<i class=\"achievement__icon " . $row["css_class"] . "\"></i>");
+                    echo("<h3 class=\"achievement__title\">" . $row["Title"] . "</h3>");
+                    echo("<div class=\"achievement__date\">" . date("d M Y", strtotime($row["Date_received"])) . "</div>");
+                    echo("</section>");
+                }
+                echo("</div>");
+            }
+            ?>
+
+        </aside>
+
+        <section class="section">
+            <div class="progress-panel">
+                <div class="progressbar">
+                    <div class="progressbar__wrap">
+                        <div class="progressbar__end" style="width: <?php echo(100 - $progress) ?>%;"></div>
+                    </div>
+                </div>
+
+                <ul class="scale">
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">10</a>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">20</a>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">30</a>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">40</a>
+                        <div class="scale__wrap">
+                            <i class="arrow arrow_type_point"></i>
+                            <i class="arrow arrow_type_point"></i>
+                            <i class="arrow arrow_type_point"></i>
+                        </div>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">50</a>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">60</a>
+                        <div class="scale__wrap">
+                            <i class="arrow arrow_type_point"></i>
+                            <i class="arrow arrow_type_point"></i>
+                            <i class="arrow arrow_type_point"></i>
+                            <i class="arrow arrow_type_point"></i>
+                            <i class="arrow arrow_type_point"></i>
+                        </div>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">70</a>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">80</a>
+                        <div class="scale__wrap">
+                            <i class="arrow arrow_type_point"></i>
+                        </div>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">90</a>
+                    </li>
+                    <li class="scale__item scale__item_size_10">
+                        <a class="point" href="#">100</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="article widget">
+                <div class="article__col article__col_position_left">
+                    <div class="goal">
+                        <p class="goal__subtitle"><?php echo($type) ?></p>
+                        <h1 class="goal__title"><?php echo($title) ?></h1>
+
+                        <p class="text"><?php echo($description) ?></p>
+                    </div>
+
+                    <div class="gallery">
+                        <div class="flex-container">
+                            <div class="flexslider">
+                                <ul class="slides">
+                                    <li><a href="#"><img src="<?php echo($image_link) ?>"/></a></li>
+                                </ul>
+
+                                <ul class="gallery__nav">
+                                    <li class="gallery__left"><i class="gallery-icon gallery-icon_dir_left"></i>
+                                    </li>
+                                    <li class="gallery__state">1 из 1</li>
+                                    <li class="gallery__right"><i class="gallery-icon gallery-icon_dir_right"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article__wrap">
+                        <div class="plan">
+                            <ol class="plan__list">
+                                <?php
+                                $result = $conn->query("SELECT * FROM events_partial_data WHERE Event_Id = " . $event_id . " ORDER BY Number ASC");
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo("<li class=\"plan__item\">
+                                        <h3 class=\"plan__title\">" . $row["Title"] . "</h3>
+                                        <p class=\"plan__description\">" . $row["Content"] . ".</p>
+                                    </li>");
+                                    }
+                                }
+                                ?>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                $result = $conn->query("SELECT * FROM users,levels where id =" . $author_id . " and levels.level=users.Level");
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $a_name = $row["Name"];
+                        $a_level = $row["Name"];
+                        $a_image = $row["Picture_link"];
+                        $a_level_description = $row["description"];
+                        $a_level_class = $row["css_class"];
+                    }
+                }
+                ?>
+                <div class="article__col article__col_position_right">
+                    <div class="article__wrap">
+                        <div class="user-widget">
+                            <img class="user-photo" src="<?php echo ($image) ?>">
+
+                            <div class="user-widget__wrap">
+                                <p class="user-widget__subtitle">Автор квеста:</p>
+                                <h3 class="user-widget__name"><?php echo($a_name) ?></h3>
+                                <p class="user-widget__role"><?php echo($a_level_description) ?></p>
+                            </div>
+                        </div>
+
+                        <div class="notice">
+                            <p class="notice__subtitle">старт</p>
+                            <h3 class="notice__title"><?php echo($date_start) ?></h3>
+                            <p class="notice__subtitle">финиш</p>
+                            <h3 class="notice__title"><?php echo($date_end) ?></h3>
+                        </div>
+
+                        <div class="notice">
+                            <p class="notice__subtitle">стоимость</p>
+                            <h3 class="notice__title"><?php echo($points) ?> баллов</h3>
+                        </div>
+                        <?php
+                        if ($participate) {
+                            echo("<div class=\"notice\">
+                            <p class=\"notice__subtitle\">статус</p>
+                            <h3 class=\"notice__title\">Участвую</h3>
+
+                            <a class=\"btn\" href=\"#\">Выйти</a>
+                        </div>");
+                        } else {
+                            echo("<div class=\"notice\">
+                            <p class=\"notice__subtitle\">статус</p>
+                            <h3 class=\"notice__title\">Не участвую</h3>
+
+                            <a class=\"btn\" href=\"#\">Учавствовать</a>
+                        </div>");
+                        }
+                        ?>
+
+
+                        <div class="notice">
+                            <p class="notice__subtitle">соцсети</p>
+                            <h3 class="notice__title">Рассказать друзьям</h3>
+
+                            <ul class="social-menu">
+                                <li class="social-menu__item">
+                                    <a class="social-btn social-btn_vk" href="#"></a>
+                                </li>
+                                <li class="social-menu__item">
+                                    <a class="social-btn social-btn_fb" href="#"></a>
+                                </li>
+                                <li class="social-menu__item">
+                                    <a class="social-btn social-btn_tw" href="#"></a>
+                                </li>
+                                <li class="social-menu__item">
+                                    <a class="social-btn social-btn_gp" href="#"></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="clear"></div>
+
+                        <div class="goals-list">
+                            <h3 class="goals-list__title">Похожие квесты</h3>
+                            <ul>
+<?php
+$result = $conn->query("SELECT * FROM events,users WHERE events.Id != " . $event_id . " and users.id=events.Author_id");
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+    echo ("<li class=\"goals-list__item\">
+                                    <div class=\"goals-list__body\">
+                                        <a class=\"goals-list__link\" href=\"event.phtml?eventId=".$row["Id"]."\">".$row["Title"]."</a>
+                                        <p class=\"goals-list__text\">от&nbsp;<a class=\"goals-list__link\" href=\"profile.phtml?userId=".$row["id"]."\">".$row["Name"]."</a></p>
+                                    </div>
+                                </li>");
+    }}
+    ?>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-menu">
+            <div class="column">
+                <ul class="footer-menu__list">
+                    <li class="footer-menu__item">
+                        <a class="link" href="about.html">О проекте</a>
+                    </li>
+                    <li class="footer-menu__item">
+                        <a class="link" href="team.html">Разработчики</a>
+                    </li>
+                    <li class="footer-menu__item">
+                        <a class="link" href="rules.html">Правила</a>
+                    </li>
+                    <li class="footer-menu__item">
+                        <a class="link" href="mailto:e.musatova@innopolis.ru,v.milenko@innopolis.ru">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="column">
+                <div class="copyright">© 2016 Eco Quest<br>Сервис улучшающий мир</div>
+            </div>
+
+            <div class="column">
+                <div class="social-block">
+                    <span class="social-block__title">Соцсети</span>
+                    <div class="social-block__wrap">
+                        <a class="link" href="vk.html"><i class="fa fa-vk"></i></a>
+                        <a class="link" href="fb.html"><i class="fa fa-facebook"></i></a>
+                        <a class="link" href="tw.html"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
