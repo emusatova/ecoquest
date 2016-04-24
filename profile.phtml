@@ -12,7 +12,7 @@ catch (Exception $e){
 
 }
 if($requested == null) {
-    $sql = "SELECT * FROM users,levels where `name`='AsTex' and levels.level=users.Level";
+    $sql = "SELECT * FROM users,levels where id=1 and levels.level=users.Level";
 }
 else{
     $sql = "SELECT * FROM users,levels where `id`=".$requested." and levels.level=users.Level";
@@ -52,15 +52,9 @@ if ($result->num_rows > 0) {
         </div>
 
         <div class="header__col">
-            <a class="logo link" href="index.html">Eco Quest</a>
+            <a class="logo link" href="index.phtml">Eco Quest</a>
         </div>
 
-        <div class="header__col">
-            <nav class="authorization-menu">
-                <a class="link" href="registration.html">Регистрация</a>
-                <a class="link" href="login.html">Вход</a>
-            </nav>
-        </div>
     </div>
 </header>
 

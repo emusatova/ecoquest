@@ -3,7 +3,7 @@ include "db.php" ?>
 
 <?php
 $conn->query("SET NAMES utf8");
-$sql = "SELECT * FROM users,levels where `name`='AsTex' and levels.level=users.Level";
+$sql = "SELECT * FROM users,levels where `name`='Владимир Миленко' and levels.level=users.Level";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -73,20 +73,13 @@ if ($result->num_rows > 0) {
     <div class="container">
         <div class="header__col">
             <nav class="main-menu">
-                <a class="link" href="events.html">События</a>
+                <a class="link" href="events.phtml">События</a>
                 <a class="link" href="news.html">Новости</a>
             </nav>
         </div>
 
         <div class="header__col">
-            <a class="logo link" href="index.html"><i class="fa fa-leaf"></i>Eco Quest</a>
-        </div>
-
-        <div class="header__col">
-            <nav class="authorization-menu">
-                <a class="link" href="registration.html">Регистрация</a>
-                <a class="link" href="login.html">Вход</a>
-            </nav>
+            <a class="logo link" href="index.phtml"><i class="fa fa-leaf"></i>Eco Quest</a>
         </div>
     </div>
 </header>
@@ -271,7 +264,7 @@ if ($result->num_rows > 0) {
                 <div class="article__col article__col_position_right">
                     <div class="article__wrap">
                         <div class="user-widget">
-                            <img class="user-photo" src="<?php echo ($image) ?>">
+                            <img class="user-photo" src="<?php echo ($a_image) ?>">
 
                             <div class="user-widget__wrap">
                                 <p class="user-widget__subtitle">Автор квеста:</p>
